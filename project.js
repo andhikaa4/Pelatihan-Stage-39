@@ -4,7 +4,7 @@ function addProject(event){
 
     let title = document.getElementById("project-name").value
     let content = document.getElementById("desc").value
-    let node = document.getElementById ("c1")
+    let node = document.getElementById ("c1").value
     let next = document.getElementById ("c2").value
     let react = document.getElementById ("c3").value
     let typescript = document.getElementById ("c4").value

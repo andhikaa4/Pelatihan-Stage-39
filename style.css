@@ -73,6 +73,8 @@ section {
 
 .section-right{
     flex: 30%;
+    box-sizing: border-box;
+    
 }
 
 .skill-container {
