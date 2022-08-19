@@ -65,6 +65,10 @@ app.post('/Project', function(req, res){
 
 })
 
+app.get('/Project-detail', function(req, res){
+    res.render('Project-detail')
+})
+
 
 app.listen(port, function(){
     console.log(`server running on port ${port}`);
