@@ -20,9 +20,12 @@
 
 .btn-primary {
     font-size: 10px;
-    flex: 50%;
-    justify-content: space-evenly;
+    flex: 45%;
 
+}
+
+.space {
+    margin-right: 5px;
 }
 
 .card-body p {

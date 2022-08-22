@@ -7,11 +7,42 @@ app.set('view engine', 'hbs')
 app.use('/assets', express.static(__dirname + '/assets'))
 app.use(express.urlencoded({extended: false}))
 
+let dataProject = []
+
+
 app.get('/', function(req, res){
-    res.render('index')
+    
+    let data = dataProject.map(function(item){
+        return {
+            ...item,
+            
+
+        }
+    })
+    
+    res.render('index', {project: data})
+
 })
 
+app.get('/Project-detail/:index', function(req, res){
+    let index = req.params.index
 
+    let data = dataProject[index]
+    data = {
+        title: data.title,
+        content: data.content,
+        start: data.start,
+        end: data.end,
+        node: data.nodeJs,
+        react: data.reactJs,
+        next: data.nextJs,
+        typescript: data.typescript,
+        duration: monthDiff(new Date(data.start), new Date(data.end))
+
+    }
+
+    res.render('Project-detail', {data})
+})
 
 app.get('/Project', function(req, res){
     res.render('Project')
@@ -30,6 +61,11 @@ app.post('/Project', function(req, res){
     let nextJs = req.body.tech3
     let typescript = req.body.tech4
     let content = req.body.pDesc
+
+    let contentResult = content.slice(0, 50) + ".....";
+
+  
+
 
     if(nodeJs){
         nodeJs = req.body.tech1
@@ -52,23 +88,69 @@ app.post('/Project', function(req, res){
         typescript = ''
     }
 
-    console.log(title);
-    console.log(start);
-    console.log(end);
-    console.log(nodeJs);
-    console.log(reactJs);
-    console.log(nextJs);
-    console.log(typescript);
-    console.log(content);
+    let project = {
+        title,
+        start,
+        end,
+        nodeJs,
+        reactJs,  
+        nextJs,
+        typescript,
+        contentResult,
+        content,
+    }
+
+
+    dataProject.push(project)
+    res.redirect('/')
+
+
+})
+
+app.get('/Project-edit/:index', function(req,res){
+    let index = req.params.index
+
+    let data = {
+        title: dataProject[index].title,
+        content: dataProject[index].content,
+        start: dataProject[index].start,
+        end: dataProject[index].end,
+
+        
+    }
+    res.render('Project-edit', {index, data})
+})
+
+app.post('/project-edit/:index', function(req, res){
+    let index = req.params.index
+
+    dataProject[index].title = req.body.projectTitle
+    dataProject[index].content = req.body.pDesc
+    dataProject[index].start = req.body.startDate
+    
+    dataProject[index].contentResult = dataProject[index].content.slice(0, 50) + "....."
+
 
     res.redirect('/')
 
 })
 
-app.get('/Project-detail', function(req, res){
-    res.render('Project-detail')
+app.get('/delete-project/:index', function(req, res) {
+    let index = req.params.index
+
+    dataProject.splice(index, 1)
+
+    res.redirect('/')
 })
 
+
+function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
 
 app.listen(port, function(){
     console.log(`server running on port ${port}`);

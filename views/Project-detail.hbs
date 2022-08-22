@@ -33,43 +33,48 @@
       </nav>
 
     <div class="container">
-        <div><h2 class="mt-5 text-center">This is a Title</h2></div>
+        <div><h2 class="mt-5 text-center">{{data.title}}</h2></div>
         <section>
             <div class="left-section">
                 <img src="https://majalahinggris.com/wp-content/uploads/2022/01/better-smartphone-photos.jpg" alt="">
             </div>
             <div class="right-section">
                 <h3>Duration</h3>
-                <div class="duration">
+                <div class="container-fluid duration">
                         <p><i class="fa-solid fa-calendar"></i>
-                        15 Aug 2022 - 15 Sep 2022</p>
+                        {{data.start}} s.d {{data.end}}</p>
                         <p>
-                        <i class="fa-solid fa-clock"></i> 1 Month</p>
+                        <i class="fa-solid fa-clock"></i> {{data.duration}} Month</p>
                 </div>
                 <h3> Tecnologies</h3>
-                <div class="tech">
-                    <div>
+                <div class="container-fluid tech">
+                    {{#if data.node }}
                         <p>
-                        <i class="fa-brands fa-node-js"></i>
+                        <i class="fa-brands fa-{{data.node}}-js"></i>
                             Node Js </p>
+                                                                    {{/if}}
 
-                        <p><i class="fa-brands fa-react"></i> React Js</p>
-                        
-                    </div>
-                    <div>
+                        {{#if data.react}}
+                        <p><i class="fa-brands fa-{{data.react}}"></i> React Js</p>
+                        {{/if}}
+
+                        {{#if data.next}}
                         <p>
-                            <i class="cib-next-js"></i> Next Js
+                            <i class="cib-{{data.next}}-js"></i> Next Js
                         </p>
+                        {{/if}}
+
+                        {{#if data.typescript}}
                         <p>
-                            <i class="cib-typescript"></i> Typescript
+                            <i class="cib-{{data.typescript}}"></i> Typescript
                         </p>
-                    </div>
+                        {{/if}}
                 </div>
             </div>
         </section>
             <div class="content-detail">
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi atque at eum nemo itaque quo iure quam vero repudiandae et similique voluptate dolorem laudantium reprehenderit dicta, eos nostrum nihil eligendi?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore beatae illo iusto unde sunt cumque voluptatum maiores, nulla ratione accusantium velit quis? Inventore officiis harum dignissimos officia ut labore mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatem iure modi totam distinctio dolorem voluptatibus sed qui excepturi error corporis tempora asperiores velit est iusto? Atque error sequi at. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae culpa non a distinctio tempore cupiditate blanditiis possimus repellendus quis dolore, alias, quisquam deleniti accusantium nobis hic reiciendis, voluptatibus architecto eos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt odit fugit molestiae, deserunt magni maiores fuga saepe, provident repellat aliquam iusto. Labore numquam alias aliquid cupiditate, optio incidunt rerum aperiam.
+                    {{data.content}}
                 </p>
             </div>
         </div>
