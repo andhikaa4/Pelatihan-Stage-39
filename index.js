@@ -1,4 +1,7 @@
+const { log } = require('console')
 const express = require('express')
+const imageUpload = require('express-fileupload')
+const path = require ('path')
 
 const app = express()
 const port = 8000
@@ -6,6 +9,9 @@ const port = 8000
 app.set('view engine', 'hbs')
 app.use('/assets', express.static(__dirname + '/assets'))
 app.use(express.urlencoded({extended: false}))
+
+
+app.use(imageUpload())
 
 let dataProject = []
 
@@ -19,6 +25,7 @@ app.get('/', function(req, res){
 
         }
     })
+    
     
     res.render('index', {project: data})
 
@@ -37,7 +44,7 @@ app.get('/Project-detail/:index', function(req, res){
         react: data.reactJs,
         next: data.nextJs,
         typescript: data.typescript,
-        duration: monthDiff(new Date(data.start), new Date(data.end))
+        duration: monthDiff(new Date(data.start), new Date(data.end)),
 
     }
 
@@ -61,11 +68,12 @@ app.post('/Project', function(req, res){
     let nextJs = req.body.tech3
     let typescript = req.body.tech4
     let content = req.body.pDesc
+    //let image = req.files.img
+    //let path = __dirname + '/assets/upload/' + image.name
+    //image.mv(path, null)
 
     let contentResult = content.slice(0, 50) + ".....";
-
-  
-
+    
 
     if(nodeJs){
         nodeJs = req.body.tech1
@@ -98,12 +106,13 @@ app.post('/Project', function(req, res){
         typescript,
         contentResult,
         content,
+        //image,
     }
 
+   
 
     dataProject.push(project)
     res.redirect('/')
-
 
 })
 
@@ -115,8 +124,6 @@ app.get('/Project-edit/:index', function(req,res){
         content: dataProject[index].content,
         start: dataProject[index].start,
         end: dataProject[index].end,
-
-        
     }
     res.render('Project-edit', {index, data})
 })
@@ -127,10 +134,17 @@ app.post('/project-edit/:index', function(req, res){
     dataProject[index].title = req.body.projectTitle
     dataProject[index].content = req.body.pDesc
     dataProject[index].start = req.body.startDate
+    dataProject[index].end = req.body.endDate
     
     dataProject[index].contentResult = dataProject[index].content.slice(0, 50) + "....."
 
+    dataProject[index].nodeJs = req.body.tech1
+    dataProject[index].reactJs = req.body.tech2
+    dataProject[index].nextJs = req.body.tech3
+    dataProject[index].typescript = req.body.tech4
 
+
+    console.log(req.body);
     res.redirect('/')
 
 })

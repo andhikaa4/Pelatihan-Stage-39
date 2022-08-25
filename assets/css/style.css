@@ -36,3 +36,13 @@
     margin-right: 15px;
     margin-top: 15px;
 }
+
+.icon {
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+
+.icon i {
+    margin-right: 10px;
+    font-size: 25px;
+}
