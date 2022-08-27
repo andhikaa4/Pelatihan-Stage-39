@@ -85,27 +85,17 @@
               
             <h5 class="card-title">
             <a class="text-decoration-none text-black" href="/Project-detail/{{@index}}" target="_blank">
-            {{this.title}}
+            {{this.name}}
             </a>
             </h5>
-            <p class="card-text">{{this.contentResult}}</p>
+            <p class="card-text">{{this.description}}</p>
 
             <div class="d-flex icon">
-              {{#if this.nodeJs }}
-                  <i class="fa-brands fa-{{this.nodeJs}}-js"></i>
-                                                             {{/if}}
-
-              {{#if this.reactJs}}
-                  <i class="fa-brands fa-{{this.reactJs}}"></i>
-              {{/if}}
-
-              {{#if this.nextJs}}
-                  <i class="cib-{{this.nextJs}}-js"></i> 
-                  {{/if}}
-
-              {{#if this.typescript}}
-                  <i class="cib-{{this.typescript}}"></i> 
-              {{/if}}
+              {{#each technologies}}         
+                  <i class="fa-brands fa-{{this}}-js"></i>
+                  <i class="cib-{{this}}"></i>
+                  
+                  {{/each}}
 
             </div>
             <div class="d-flex">
